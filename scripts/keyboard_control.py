@@ -30,16 +30,16 @@ screen = pygame.display.set_mode((400, 300))
 
 
 char_to_action = {
-    'w': np.array([0, -1, 0, 0]),
-    'a': np.array([1, 0, 0, 0]),
-    's': np.array([0, 1, 0, 0]),
-    'd': np.array([-1, 0, 0, 0]),
-    'q': np.array([1, -1, 0, 0]),
-    'e': np.array([-1, -1, 0, 0]),
-    'z': np.array([1, 1, 0, 0]),
-    'c': np.array([-1, 1, 0, 0]),
-    'k': np.array([0, 0, 1, 0]),
-    'j': np.array([0, 0, -1, 0]),
+    'w': np.array([0, -.1, 0, 0]),
+    'a': np.array([.1, 0, 0, 0]),
+    's': np.array([0, .1, 0, 0]),
+    'd': np.array([-.1, 0, 0, 0]),
+    'q': np.array([.1, -.1, 0, 0]),
+    'e': np.array([-.1, -.1, 0, 0]),
+    'z': np.array([.1, .1, 0, 0]),
+    'c': np.array([-.1, .1, 0, 0]),
+    'k': np.array([0, 0, .1, 0]),
+    'j': np.array([0, 0, -.1, 0]),
     'h': 'close',
     'l': 'open',
     'x': 'toggle',
@@ -51,20 +51,11 @@ char_to_action = {
 import gym
 import multiworld
 import pygame
-# env = gym.make('SawyerPushAndReachEnvEasy-v0')
-# env = SawyerPushAndReachXYEnv(
-#     goal_low=(-0.15, 0.4, 0.02, -.1, .5),
-#     goal_high=(0.15, 0.75, 0.02, .1, .7),
-#     puck_low=(-.3, .25),
-#     puck_high=(.3, .9),
-#     hand_low=(-0.15, 0.4, 0.05),
-#     hand_high=(0.15, .75, 0.3),
-#     norm_order=2,
-#     xml_path='sawyer_xyz/sawyer_push_puck_small_arena.xml',
-#     reward_type='state_distance',
-#     reset_free=False,
-# )
-env = SawyerReachXYEnv()
+import mujoco_py
+multiworld.register_all_envs()
+env = gym.make('SawyerPushNIPSEasy-v0')
+env = mujoco_py.MjSim(env)
+# env = SawyerReachXYEnv()
 NDIM = env.action_space.low.size
 lock_action = False
 obs = env.reset()

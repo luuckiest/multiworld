@@ -253,10 +253,6 @@ class SawyerPushAndReachXYEnv(MujocoEnv, Serializable, MultitaskEnv):
             hand = np.random.uniform(self.hand_goal_low, self.hand_goal_high)
             puck = np.random.uniform(self.puck_goal_low, self.puck_goal_high)
             puck1 = np.random.uniform(self.puck_goal_low, self.puck_goal_high)
-            dist = np.linalg.norm(puck-puck1)
-            while(dist<0.05):
-                puck1 = np.random.uniform(self.puck_goal_low, self.puck_goal_high)
-                dist = np.linalg.norm(puck-puck1)
         else:
             hand = self.fixed_hand_goal.copy()
             puck = self.fixed_puck_goal.copy()
