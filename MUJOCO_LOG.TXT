@@ -1,3 +1,6 @@
 Wed Aug 21 16:23:11 2019
 ERROR: GLEW initalization error: Missing GL version
 
+Tue Aug 27 22:24:00 2019
+ERROR: Shadow framebuffer is not complete, error 0x8cd7
+

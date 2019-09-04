@@ -25,7 +25,7 @@
 
     <default>
         <joint limited="true" damping="1" stiffness="0" armature=".1" user="0"/>
-        <geom solref="0.008 1" solimp="0.95 0.95 0.01" margin="0.001" user="0"/>
+        <geom solref="0.008 1" solimp=".99 .99 0" margin="0.001" user="0"/>
         <motor ctrllimited="true" ctrlrange="-1 1"/>
         <position ctrllimited="true"/>
 
@@ -233,11 +233,14 @@
             <geom name="puckbox"
                   type="cylinder"
                   pos="0 0 0"
-                  size="0.04 0.015"
+                  size="0.035 0.015"
                   rgba="0 .5 1 1"
                   contype="2"
                   conaffinity="4"
                   friction=".1 .005 .0001"
+                  solimp=".99 .99 0.0001"
+                  margin="0.001"
+                  solref=".02 1"
             />
             <site name="puck" pos="0 0 0" size="0.01" />
         </body>
@@ -257,14 +260,18 @@
             <inertial pos="0 0 0" mass=".1" diaginertia=".001 .001 .001"/>
             <!--type="box"-->
             <!--size="0.02 0.02 0.02"-->
+            <!--rgba="0 1 0 1"-->
             <geom name="puckbox1"
                   type="cylinder"
                   pos="0 0 0"
-                  size="0.04 0.015"
-                  rgba="0 1 0 1"
+                  size="0.035 0.015"
+                  rgba="0 .5 1 1"
                   contype="2"
                   conaffinity="4"
                   friction=".1 .005 .0001"
+                  solimp=".99 .99 0.0001"
+                  margin="0.001"
+                  solref=".02 1"
             />
             <site name="puck1" pos="0 0 0" size="0.01" />
         </body>
@@ -285,6 +292,14 @@
             <geom name="puck-goal-marker" type="sphere" pos="0 0 0" size="0.02"
                   rgba=".9 .1 .1 0" contype="0" conaffinity="8"/>
             <site name="puck-goal-site" pos="0 0 0" size="0.01" rgba="0 0 0 0" />
+        </body>
+        <body name="puck-goal11" pos="0 0 0">
+            <!--<inertial mass="0"/>-->
+            <joint name="puck-goal-joint1" type="free" limited='false'
+                   damping="0" armature="0" />
+            <geom name="puck-goal-marker1" type="sphere" pos="0 0 0" size="0.02"
+                  rgba=".9 .1 .1 0" contype="0" conaffinity="8"/>
+            <site name="puck-goal-site1" pos="0 0 0" size="0.01" rgba="0 0 0 0" />
         </body>
 
     </worldbody>

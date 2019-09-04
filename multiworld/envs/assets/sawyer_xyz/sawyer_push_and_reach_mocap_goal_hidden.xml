@@ -3,7 +3,12 @@
     <!-- <option gravity="0 0 0" /> -->
     <!-- <option impratio="0.01" /> -->
     <!-- <option collision="predefined" /> -->
-    <option integrator="Euler" timestep="0.002" iterations="50"/>
+    <option
+            iterations="50"
+            integrator="Euler"
+            timestep="0.002"
+            cone="elliptic"
+    />
     <size njmax="500" nconmax="100" />
     <asset>
         <texture type="skybox" builtin="gradient" rgb1=".8 1 1" rgb2=".6 1 1" width="32" height="32"></texture>
@@ -25,7 +30,7 @@
 
     <default>
         <joint limited="true" damping="1" stiffness="0" armature=".1" user="0"/>
-        <geom solref="0.008 1" solimp="0.95 0.95 0.01" margin="0.001" user="0"/>
+        <geom solref="0.008 1" solimp=".99 .99 0" margin="0.001" user="0"/>
         <motor ctrllimited="true" ctrlrange="-1 1"/>
         <position ctrllimited="true"/>
 
@@ -216,58 +221,21 @@
             <geom conaffinity="0" contype="0" pos="0 0 0" rgba="0.5 0.5 0.5 0" size="0.1 0.02 0.02" type="box"></geom>
         </body>
 
-        <body name="puck" pos="0 0 0.1">
+        <body name="puck" pos="0 0 .1">
             <joint name="puckjoint" type="free" limited='false' damping="1" armature="0" />
-            <!--<joint name="puckjoint-x" type="slide" limited='false' pos="0 0 0"-->
-                   <!--axis="1 0 0"-->
-                   <!--/>-->
-            <!--<joint name="puckjoint-y" type="slide" limited='false' pos="0 0 0"-->
-                   <!--axis="0 1 0"-->
-            <!--/>-->
-            <!--<joint name="puckjoint-z" type="slide" limited='false' pos="0 0 0"-->
-                   <!--axis="0 0 1"-->
-            <!--/>-->
-            <inertial pos="0 0 0" mass=".1" diaginertia=".001 .001 .001"/>
-            <!--type="box"-->
-            <!--size="0.02 0.02 0.02"-->
+            <inertial pos="0 0 0" mass=".1" diaginertia=".100000 .100000 .100000"/>
             <geom name="puckbox"
                   type="cylinder"
                   pos="0 0 0"
-                  size="0.04 0.015"
-                  rgba="0 .5 1 1"
-                  contype="2"
+                  size="0.04 0.02"
+									rgba=".1 .9 .1 1"
+                  contype="4"
                   conaffinity="4"
                   friction=".1 .005 .0001"
             />
             <site name="puck" pos="0 0 0" size="0.01" />
         </body>
 
-
-        <body name="puck1" pos="0 0 0.1">
-            <joint name="puckjoint1" type="free" limited='false' damping="1" armature="0" />
-            <!--<joint name="puckjoint-x" type="slide" limited='false' pos="0 0 0"-->
-                   <!--axis="1 0 0"-->
-                   <!--/>-->
-            <!--<joint name="puckjoint-y" type="slide" limited='false' pos="0 0 0"-->
-                   <!--axis="0 1 0"-->
-            <!--/>-->
-            <!--<joint name="puckjoint-z" type="slide" limited='false' pos="0 0 0"-->
-                   <!--axis="0 0 1"-->
-            <!--/>-->
-            <inertial pos="0 0 0" mass=".1" diaginertia=".001 .001 .001"/>
-            <!--type="box"-->
-            <!--size="0.02 0.02 0.02"-->
-            <geom name="puckbox1"
-                  type="cylinder"
-                  pos="0 0 0"
-                  size="0.04 0.015"
-                  rgba="0 1 0 1"
-                  contype="2"
-                  conaffinity="4"
-                  friction=".1 .005 .0001"
-            />
-            <site name="puck1" pos="0 0 0" size="0.01" />
-        </body>
 
         <body name="hand-goal" pos="0 0 0">
             <!--<inertial mass="0"/>-->
@@ -283,16 +251,8 @@
             <joint name="puck-goal-joint" type="free" limited='false'
                    damping="0" armature="0" />
             <geom name="puck-goal-marker" type="sphere" pos="0 0 0" size="0.02"
-                  rgba=".9 .1 .1 0" contype="0" conaffinity="8"/>
+                  rgba=".9 .1 .1 0" contype="1" conaffinity="8"/>
             <site name="puck-goal-site" pos="0 0 0" size="0.01" rgba="0 0 0 0" />
-        </body>
-        <body name="puck-goal11" pos="0 0 0">
-            <!--<inertial mass="0"/>-->
-            <joint name="puck-goal-joint1" type="free" limited='false'
-                   damping="0" armature="0" />
-            <geom name="puck-goal-marker1" type="sphere" pos="0 0 0" size="0.02"
-                  rgba=".9 .1 .1 0" contype="0" conaffinity="8"/>
-            <site name="puck-goal-site1" pos="0 0 0" size="0.01" rgba="0 0 0 0" />
         </body>
 
     </worldbody>
