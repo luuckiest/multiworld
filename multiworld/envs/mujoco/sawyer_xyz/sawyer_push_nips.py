@@ -56,7 +56,7 @@ class SawyerPushAndReachXYEnv(MujocoEnv, Serializable, MultitaskEnv):
         self.mocap_low = np.array(mocap_low)
         self.mocap_high = np.array(mocap_high)
         self.force_puck_in_goal_space = force_puck_in_goal_space
-        self.curr_config = [[0, 0], [0, 0], [0, 0]]
+        self.curr_config = [0, 0.6]
 
         self._goal_xyxy = self.sample_goal_xyxy()
         # MultitaskEnv.__init__(self, distance_metric_order=2)
@@ -250,7 +250,7 @@ class SawyerPushAndReachXYEnv(MujocoEnv, Serializable, MultitaskEnv):
 
         puck = np.array([0, 0.6])
 
-        self.curr_config = [[0, 0.6], [a[1], 0.6], [a[2], 0.6]]
+        self.curr_config = [0, 0.6]
 
         #return np.array(puck), np.array(puck1), np.array(puck2)
         return np.array(puck)
@@ -573,31 +573,35 @@ class SawyerPushAndReachXYEasyEnv(SawyerPushAndReachXYEnv):
             **actual_kwargs
         )
 
+    def get_instr(self):
+        return self.instr
+
     def sample_goal_xyxy(self):
-        hand = np.random.uniform(self.hand_goal_low, self.hand_goal_high)
+        hand = np.array([-0.05, 0.45])
         curr_pos = self.curr_config
-
         a = [-1, 1]
-
         up_right = random.randint(0, 1)
         direction = a[random.randint(0, 1)]
         #print("------------------------")
         #print(curr_pos[0])
         if up_right:
-            curr_pos[0] = [curr_pos[0][0], curr_pos[0][1] + 0.1 * direction]
+            a = [curr_pos[0], curr_pos[1] + 0.1 * direction]
         else:
-            curr_pos[0] = [curr_pos[0][0] + 0.1 * direction, curr_pos[0][1]]
+            a = [curr_pos[0] + 0.1 * direction, curr_pos[1]]
         #print(curr_pos[0])
         #print("------------------------")
-        self.instr = up_right + direction + 1
+        if a[0] == -0.1:
+            self.instr = 0
+        if a[0] == 0.1:
+            self.instr = 1
+        if a[1] == 0.5:
+            self.instr = 2
+        if a[1] == 0.7:
+            self.instr = 3
+    #    self.instr = up_right + direction + 1
         #TODO, get which obj
         self.obj = 1
-        return np.hstack((hand, np.array(curr_pos[0])))
-
-    def get_instr(self):
-        return np.array([self.obj, self.instr])
-
-
+        return np.hstack((hand, np.array(a)))
 
 
 class SawyerPushAndReachXYHarderEnv(SawyerPushAndReachXYEnv):
